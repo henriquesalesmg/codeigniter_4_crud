@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use CodeIgniter\Controller;
 use App\Models\BannersModel;
 use CodeIgniter\HTTP\Files\UploadedFile;
+use App\Config\Images;
 
 class Banners extends BaseController
 {
@@ -26,6 +27,7 @@ class Banners extends BaseController
 		echo view('templates/footer');
 	}
 
+
 	public function new(){
 
 		helper('form');
@@ -42,22 +44,38 @@ class Banners extends BaseController
 
 		$rules = [
 			'titulo' => 'required|min_length[3]|max_length[50]',
-			'banner' => 'required',
+			'banner' => 'uploaded[banner]|max_size[banner, 1024]|is_image[banner]',
 		];
 
 		$model = new BannersModel();
 
-		$banner = [
-			'id'         =>  $this->request->getVar('id'),
-			'titulo'     =>  $this->request->getVar('titulo'),
-			'descricao'  =>  $this->request->getVar('descricao'),
-			'banner'     =>  $this->request->getFile('banner'),
-			'ativo'      =>  $this->request->getVar('ativo')
-		];
-		
-
 		if($this->validate($rules)){
+			
+			$file = $this->request->getFile('banner');
+
+			if(! $file->isValid() ){
+				return $this->fail($file->getErrorString());
+			}
+
+			$file->move('./assets/uploads');
+
+			
+			$banner = [
+				'id'         =>  $this->request->getVar('id'),
+				'titulo'     =>  $this->request->getVar('titulo'),
+				'descricao'  =>  $this->request->getVar('descricao'),
+				'banner'     =>  $file->getName(),
+				'ativo'      =>  $this->request->getVar('ativo')
+			];
+			
+
 			$model->save($banner);
+
+			$image = \Config\Services::image()
+					 ->withFile('./assets/uploads/'.$banner['banner'])
+					 ->fit(400,300, 'center')
+					 ->save('./assets/uploads/thumbnails/thumb_'.$banner['banner']);
+
 
 			echo view('templates/header');	
 			echo view('banners/success', $banner);	
@@ -78,7 +96,6 @@ class Banners extends BaseController
 		if(empty($data['banners'])){
 			throw new \CodeIgniter\Exceptions\PageNotFoundException("Banner não encontrado");
 		}
-
 		$data = [
 			'id' => $data['banners']['id'],
 			'titulo' => $data['banners']['titulo'],
@@ -90,6 +107,14 @@ class Banners extends BaseController
 		echo view('templates/header');	
 		echo view('banners/form', $data);	
 		echo view('templates/footer');
+	}
+
+	public function delete($id = null){
+		$model = new BannersModel();
+		$model->delete($id);
+		$session = 1;
+
+		return redirect()->to( base_url('banners/list') );
 	}
 	
 }

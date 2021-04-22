@@ -5,7 +5,7 @@
 
 <form action="/banners/store" method="post" enctype="multipart/form-data">
 
-    <input type="hidden" name="id" value="<?php echo isset($id) ? $id : ''; ?>">
+    <input type="hidden" name="id" value="<?php echo isset($id) ? $id : set_value('id') ?>">
 
     <div class="form-group">
         <label for="titulo">Título</label>
@@ -26,19 +26,20 @@
     </div>
 
     <div class="custom-file">
-        <input value="<?php echo isset($banner) ? $banner : '' ?>" type="file" class="custom-file-input" id="banner" name="banner">
-        <label class="custom-file-label" for="banner">Imagem do Banner</label>
+
+        <input value="<?php echo isset($banner) ? $banner : set_value('banner') ?>" type="file" class="custom-file-input" id="banner" name="banner">
+        <label class="custom-file-label" for="banner">Imagem do Banner (será redimensionada para melhor exibição)</label>
+        
     </div>
-    <!--
-    <div class="form-group">
-        <label for="banner">Banner</label>
-        <input type="text" class="form-control"  value="<?php // echo isset($banner) ? $banner : '' ?>"
-        id="banner" placeholder="Banner" name="banner">
-    </div> -->
     <hr>
     <button type="submit" class="btn btn-primary" value="Salvar">Salvar</button>
+    <hr>
 </form>
 
 <div class="py-4 px-4">
     <a href="/banners/list" class="btn btn-info float-right">Voltar à listagem de Banners</a>
 </div>
+<?php if(isset($banner)){ ?>
+    (imagem no tamanho original)
+    <img class="img-responsive" src="/assets/uploads/<?php echo $banner; ?>" alt="<?php echo $titulo; ?>">
+<?php } ?>

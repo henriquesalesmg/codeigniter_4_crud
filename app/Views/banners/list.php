@@ -1,7 +1,18 @@
 <h1>Listagem de Banners</h1>
+
+<?php if(isset($deleted)){ ?>
+    <div class="pt-4">
+        <div class="alert alert-danger">
+            Banner Deletado!
+        </div>
+    </div>
+<?php } ?>
+
 <div class="py-4 px-4">
     <a href="/banners/new/form" class="btn btn-info">Adicionar novo Banner</a>
 </div>
+
+
 <table class="table">
   <thead class="thead-dark">
     <tr>
@@ -27,7 +38,7 @@
                     aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
-                        <img class="img-responsive" src="<?php echo $banner['banner']; ?>" alt="<?php echo $banner['titulo']; ?>">
+                        <img class="img-responsive" src="/assets/uploads/thumbnails/thumb_<?php echo $banner['banner']; ?>" alt="<?php echo $banner['titulo']; ?>">
                         </div>
                     </div>
                 </div>

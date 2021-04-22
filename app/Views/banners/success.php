@@ -4,7 +4,7 @@
         Banner Salvo com Sucesso.
     </div>
     <h3><?php echo $titulo; ?></h3>
-    <img class="img-responsive" src="<?php echo $banner; ?>" alt="<?php echo $titulo; ?>">
+    <img class="img-responsive" src="/assets/uploads/thumbnails/thumb_<?php echo $banner; ?>" alt="<?php echo $titulo; ?>">
     <h4><?php echo $descricao; ?></h4>
     <hr>
     <a href="/banners/new" class="btn btn-warning">Editar o Banner</a>
