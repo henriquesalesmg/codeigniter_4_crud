@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use CodeIgniter\Controller;
 use App\Models\BannersModel;
 use CodeIgniter\HTTP\Files\UploadedFile;
 use App\Config\Images;
@@ -73,7 +72,7 @@ class Banners extends BaseController
 
 			$image = \Config\Services::image()
 					 ->withFile('./assets/uploads/'.$banner['banner'])
-					 ->fit(400,300, 'center')
+					 ->fit(1300,600, 'center')
 					 ->save('./assets/uploads/thumbnails/thumb_'.$banner['banner']);
 
 

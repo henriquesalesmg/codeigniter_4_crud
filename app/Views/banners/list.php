@@ -1,12 +1,5 @@
 <h1>Listagem de Banners</h1>
 
-<?php if(isset($deleted)){ ?>
-    <div class="pt-4">
-        <div class="alert alert-danger">
-            Banner Deletado!
-        </div>
-    </div>
-<?php } ?>
 
 <div class="py-4 px-4">
     <a href="/banners/new/form" class="btn btn-info">Adicionar novo Banner</a>
