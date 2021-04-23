@@ -1,8 +1,10 @@
-# Aplicação CRUD em Codeiniter 4.1
+# Aplicação CRUD em Codeiniter 4.1 (EM DESENVOLVIMENTO)
 
 ## Configurações usadas:
 
-HTML5, CSS (Bootstrap), Mysql
+HTML5, CSS (Bootstrap 4), Mysql
+Página NÃO RESPONSÍVA
+Adicionar banners para a visualização (link na página inicial)
 
 ## Funcionamento
 
